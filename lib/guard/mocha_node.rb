@@ -10,7 +10,9 @@ module Guard
       :keep_failed      => true,
       :notify           => true,
       :coffeescript     => true,
-      :verbose          => true
+      :verbose          => true,
+      :reporter		=> "spec",
+      :color            => true
     }
 
     PATHS_FOR_ALL_SPECS = %w(spec)
@@ -60,6 +62,7 @@ module Guard
     private
 
     def run(run_paths = [], runner_options = {}, notifications = {})
+      ::Guard::Notifier.notify "Guard mocha runs for #{run_paths.join(', ')}"
       @state.update(run_paths, options.merge(runner_options))
     end
 

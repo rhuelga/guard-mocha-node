@@ -29,7 +29,7 @@ describe Guard::MochaNode::Runner do
 
       context "and coffeescript option is true" do
         it "passes the --coffee option to mocha node" do
-          Open3.should_receive(:popen3).with(/--coffee/)
+          Open3.should_receive(:popen3).with(/--compilers coffee:coffee-script/)
           runner.run(some_paths, :coffeescript => true)
         end
       end
@@ -41,17 +41,17 @@ describe Guard::MochaNode::Runner do
         end
       end
 
-      context "and verbose option is true" do
-        it "passes the --verbose option to mocha node" do
-          Open3.should_receive(:popen3).with(/--verbose/)
-          runner.run(some_paths, :verbose => true)
+      context "and color option is true" do
+        it "passes the -c option to mocha node" do
+          Open3.should_receive(:popen3).with(/-c/)
+          runner.run(some_paths, :color => true)
         end
       end
 
-      context "and verbose option is false" do
-        it "does not pass the --verbose option to jasmin node" do
-          Open3.should_not_receive(:popen3).with(/--verbose/)
-          runner.run(some_paths, :verbose => false)
+      context "and color option is false" do
+        it "does not pass the -C option to mocha node" do
+          Open3.should_receive(:popen3).with(/-C/)
+          runner.run(some_paths, :color => false)
         end
       end
 

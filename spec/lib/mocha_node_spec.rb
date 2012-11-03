@@ -40,6 +40,14 @@ describe Guard::MochaNode do
         guard.options[:verbose].should be_true
       end
 
+      it "sets :reporter option to true" do
+        guard.options[:reporter].should eql "spec"
+      end
+
+      it "sets :reporter option to true" do
+        guard.options[:color].should eql true
+      end
+
       it "is passing" do
         guard.should be_passing
       end
@@ -57,8 +65,9 @@ describe Guard::MochaNode do
                                               :all_after_pass   => false,
                                               :keep_failed      => false,
                                               :notify           => false,
-                                              :coffeescript     => false,
-                                              :verbose          => false
+					      :coffeescript     => false,
+					      :reporter         => 'spec',
+					      :color            => false
                                             }) }
 
       it "sets the path to mocha bin" do
@@ -85,8 +94,11 @@ describe Guard::MochaNode do
         guard.options[:coffeescript].should be_false
       end
 
-      it "sets the :verbose option" do
-        guard.options[:verbose].should be_false
+      it "sets the :reporter option" do
+        guard.options[:reporter].should eql 'spec'
+      end
+      it "sets the :color option" do
+        guard.options[:color].should be_false
       end
     end
   end

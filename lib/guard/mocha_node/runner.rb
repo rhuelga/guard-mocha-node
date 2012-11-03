@@ -33,6 +33,7 @@ module Guard
       def self.command_line_options
         options = []
         options << "--compilers coffee:coffee-script" if @options[:coffeescript]
+        options << "--recursive" if @options[:recursive]
 	if @options[:color]
 	  options << "-c"
 	else

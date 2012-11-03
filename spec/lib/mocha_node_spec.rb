@@ -48,6 +48,10 @@ describe Guard::MochaNode do
         guard.options[:color].should eql true
       end
 
+      it "sets :recursive option to true" do
+        guard.options[:recursive].should eql true
+      end
+
       it "is passing" do
         guard.should be_passing
       end
@@ -67,7 +71,8 @@ describe Guard::MochaNode do
                                               :notify           => false,
 					      :coffeescript     => false,
 					      :reporter         => 'spec',
-					      :color            => false
+					      :color            => false,
+					      :recursive        => false,
                                             }) }
 
       it "sets the path to mocha bin" do
@@ -99,6 +104,9 @@ describe Guard::MochaNode do
       end
       it "sets the :color option" do
         guard.options[:color].should be_false
+      end
+      it "sets the :recursive option" do
+        guard.options[:recursive].should be_false
       end
     end
   end

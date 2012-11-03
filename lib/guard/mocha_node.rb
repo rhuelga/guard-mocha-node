@@ -12,7 +12,8 @@ module Guard
       :coffeescript     => true,
       :verbose          => true,
       :reporter		=> "spec",
-      :color            => true
+      :color            => true,
+      :recursive        => true
     }
 
     PATHS_FOR_ALL_SPECS = %w(spec)

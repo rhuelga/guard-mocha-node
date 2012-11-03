@@ -49,9 +49,23 @@ describe Guard::MochaNode::Runner do
       end
 
       context "and color option is false" do
-        it "does not pass the -C option to mocha node" do
+        it "passes the -C option to mocha node" do
           Open3.should_receive(:popen3).with(/-C/)
           runner.run(some_paths, :color => false)
+        end
+      end
+
+      context "and recursive option is true" do
+        it "passes the --recursive option to mocha node" do
+          Open3.should_receive(:popen3).with(/--recursive/)
+          runner.run(some_paths, :recursive => true)
+        end
+      end
+
+      context "and recursive option is false" do
+        it "does not pass the --recursive option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--recursive/)
+          runner.run(some_paths, :recursive => false)
         end
       end
 

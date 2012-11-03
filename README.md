@@ -62,10 +62,17 @@ Display growl/libnotify notifications.
 
 Load coffeescript and all execution of .coffee files.
 
-* `:verbose     # default => true`
+* `:reporter         # default => "spec"`
 
-Execute jasmine-node in verbose mode
+To select a mocha reporter
 
+* `:color            # default => true`
+
+Enable or disable the mocha color output
+
+* `:recursive        # default => true`
+
+Enable or disable the recursive directory mocha option
 
 * `:mocha_bin`
 

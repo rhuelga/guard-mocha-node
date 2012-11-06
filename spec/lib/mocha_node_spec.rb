@@ -40,16 +40,20 @@ describe Guard::MochaNode do
         guard.options[:verbose].should be_true
       end
 
-      it "sets :reporter option to true" do
+      it "sets :reporter option to 'spec'" do
         guard.options[:reporter].should eql "spec"
       end
 
-      it "sets :reporter option to true" do
+      it "sets :color option to true" do
         guard.options[:color].should eql true
       end
 
       it "sets :recursive option to true" do
         guard.options[:recursive].should eql true
+      end
+
+      it "sets :paths_for_all_specs  option to ['spec']" do
+        guard.options[:paths_for_all_specs].should eql ['spec']
       end
 
       it "is passing" do
@@ -73,6 +77,7 @@ describe Guard::MochaNode do
 					      :reporter         => 'spec',
 					      :color            => false,
 					      :recursive        => false,
+					      :paths_for_all_specs => %w(test)
                                             }) }
 
       it "sets the path to mocha bin" do
@@ -107,6 +112,9 @@ describe Guard::MochaNode do
       end
       it "sets the :recursive option" do
         guard.options[:recursive].should be_false
+      end
+      it "sets the :paths_for_all_specs option" do
+        guard.options[:paths_for_all_specs].should eql ['test']
       end
     end
   end

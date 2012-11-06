@@ -74,6 +74,10 @@ Enable or disable the mocha color output
 
 Enable or disable the recursive directory mocha option
 
+* `:paths_for_all_specs  # default => ['spec']`
+
+Paths for run all specs
+
 * `:mocha_bin`
 
 Specify the path to the jasmine-node binary that will execute your specs.

@@ -18,7 +18,8 @@ module Guard
 
       def self.print_message
         message = @options[:message]
-        message ||= @paths == PATHS_FOR_ALL_SPECS ? "Running all specs" : "Running: #{@paths.join(' ')}"
+	is_all_specs = @paths.sort == @options[:paths_for_all_specs].sort
+        message ||= is_all_specs ? "Running all specs" : "Running: #{@paths.join(' ')}"
         ::Guard::UI.info(message, :reset => true)
       end
 

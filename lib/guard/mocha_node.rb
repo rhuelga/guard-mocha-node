@@ -13,10 +13,9 @@ module Guard
       :verbose          => true,
       :reporter		=> "spec",
       :color            => true,
-      :recursive        => true
+      :recursive        => true,
+      :paths_for_all_specs => %w(spec)
     }
-
-    PATHS_FOR_ALL_SPECS = %w(spec)
 
     autoload :Runner,    "guard/mocha_node/runner"
     autoload :SpecState, "guard/mocha_node/spec_state"
@@ -31,7 +30,7 @@ module Guard
     end
 
     def run_all
-      run(PATHS_FOR_ALL_SPECS)
+      run( options[:paths_for_all_specs])
       notify(:all)
     end
 

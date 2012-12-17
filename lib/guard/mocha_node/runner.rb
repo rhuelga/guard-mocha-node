@@ -24,23 +24,34 @@ module Guard
       end
 
       def self.execute_mocha_node_command
-        ::Open3.popen3(mocha_node_command)
+        ::Open3.popen3(*mocha_node_command)
       end
 
       def self.mocha_node_command
-        "#{@options[:mocha_bin]} #{command_line_options} #{@paths.join(' ')}"
+        argvs = [ @options[:mocha_bin] ]
+        argvs += command_line_options
+        argvs += @paths
+        argvs.map(&:to_s)
       end
 
       def self.command_line_options
         options = []
-        options << "--compilers coffee:coffee-script" if @options[:coffeescript]
-        options << "--recursive" if @options[:recursive]
-	if @options[:color]
-	  options << "-c"
-	else
-	  options << "-C"
-	end
-        options.join(" ")
+
+        if @options[:coffeescript]
+          options += %w(--compilers coffee:coffee-script)
+        end
+
+        if @options[:recursive]
+          options << "--recursive"
+        end
+
+        if @options[:color]
+          options << "-c"
+        else
+          options << "-C"
+        end
+
+        options
       end
     end
   end

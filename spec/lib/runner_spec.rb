@@ -29,16 +29,37 @@ describe Guard::MochaNode::Runner do
       end
 
       context "and coffeescript option is true" do
-        it "passes the --coffee option to mocha node" do
+        it "passes the --compilers option to mocha node" do
           Open3.should_receive(:popen3).with(/--compilers coffee:coffee-script/)
 	  runner.run(some_paths, options.merge({ :coffeescript => true}))
         end
       end
 
       context "and coffeescript option is false" do
-        it "does not pass the --coffee option to mocha node" do
-          Open3.should_not_receive(:popen3).with(/--coffee/)
+        it "does not pass the --compilers option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--compilers coffee:coffee-script/)
           runner.run(some_paths, options.merge({ :coffeescript => false}))
+        end
+      end
+
+      context "and livescript option is true" do
+        it "passes the --compilers option to mocha node" do
+          Open3.should_receive(:popen3).with(/--compilers ls:LiveScript/)
+    runner.run(some_paths, options.merge({ :livescript => true}))
+        end
+      end
+
+      context "and livescript option is false" do
+        it "does not pass the --compilers option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--compilers ls:LiveScript/)
+    runner.run(some_paths, options.merge({ :livescript => false}))
+        end
+      end
+
+      context "and both coffeescript and livescript options are true" do
+        it "passes the --compilers option to mocha node" do
+          Open3.should_receive(:popen3).with(/--compilers coffee:coffee-script,ls:LiveScript/)
+    runner.run(some_paths, options.merge({ :coffeescript => true, :livescript => true}))
         end
       end
 

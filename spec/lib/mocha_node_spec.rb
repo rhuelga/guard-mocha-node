@@ -36,6 +36,10 @@ describe Guard::MochaNode do
         guard.options[:coffeescript].should be_true
       end
 
+      it "sets :livescript option to true" do
+        guard.options[:livescript].should be_false
+      end
+
       it "sets :verbose option to true" do
         guard.options[:verbose].should be_true
       end
@@ -74,6 +78,7 @@ describe Guard::MochaNode do
                                               :keep_failed      => false,
                                               :notify           => false,
 					      :coffeescript     => false,
+                :livescript       => false,
 					      :reporter         => 'spec',
 					      :color            => false,
 					      :recursive        => false,
@@ -102,6 +107,10 @@ describe Guard::MochaNode do
 
       it "sets the :coffeescript option" do
         guard.options[:coffeescript].should be_false
+      end
+
+      it "sets the :livescript option" do
+        guard.options[:livescript].should be_false
       end
 
       it "sets the :reporter option" do

@@ -62,6 +62,10 @@ Display growl/libnotify notifications.
 
 Load coffeescript and all execution of .coffee files.
 
+* `:livescript       # default => false`
+
+Load livescript and all execution of .ls files.
+
 * `:reporter         # default => "spec"`
 
 To select a mocha reporter

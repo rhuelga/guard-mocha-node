@@ -36,6 +36,10 @@ describe Guard::MochaNode do
         guard.options[:coffeescript].should be_true
       end
 
+      it "sets :livescript option to true" do
+        guard.options[:livescript].should be_false
+      end
+
       it "sets :verbose option to true" do
         guard.options[:verbose].should be_true
       end
@@ -48,8 +52,16 @@ describe Guard::MochaNode do
         guard.options[:color].should eql true
       end
 
+      it "sets :require option to nil" do
+        guard.options[:require].should be_nil
+      end
+
       it "sets :recursive option to true" do
         guard.options[:recursive].should eql true
+      end
+
+      it "sets :globals option to nil" do
+        guard.options[:globals].should be_nil
       end
 
       it "sets :paths_for_all_specs  option to ['spec']" do
@@ -74,9 +86,12 @@ describe Guard::MochaNode do
                                               :keep_failed      => false,
                                               :notify           => false,
 					      :coffeescript     => false,
+                :livescript       => false,
 					      :reporter         => 'spec',
 					      :color            => false,
+                :require          => 'should',
 					      :recursive        => false,
+                :globals          => ['foo', 'bar'],
 					      :paths_for_all_specs => %w(test)
                                             }) }
 
@@ -104,15 +119,30 @@ describe Guard::MochaNode do
         guard.options[:coffeescript].should be_false
       end
 
+      it "sets the :livescript option" do
+        guard.options[:livescript].should be_false
+      end
+
       it "sets the :reporter option" do
         guard.options[:reporter].should eql 'spec'
       end
+
       it "sets the :color option" do
         guard.options[:color].should be_false
       end
+
+      it "sets the :require option" do
+        guard.options[:require].should eql 'should'
+      end
+
       it "sets the :recursive option" do
         guard.options[:recursive].should be_false
       end
+
+      it "sets the :globals option" do
+        guard.options[:globals].should eql ['foo', 'bar']
+      end
+
       it "sets the :paths_for_all_specs option" do
         guard.options[:paths_for_all_specs].should eql ['test']
       end

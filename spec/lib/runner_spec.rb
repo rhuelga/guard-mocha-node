@@ -29,16 +29,37 @@ describe Guard::MochaNode::Runner do
       end
 
       context "and coffeescript option is true" do
-        it "passes the --coffee option to mocha node" do
+        it "passes the --compilers option to mocha node" do
           Open3.should_receive(:popen3).with(/--compilers coffee:coffee-script/)
 	  runner.run(some_paths, options.merge({ :coffeescript => true}))
         end
       end
 
       context "and coffeescript option is false" do
-        it "does not pass the --coffee option to mocha node" do
-          Open3.should_not_receive(:popen3).with(/--coffee/)
+        it "does not pass the --compilers option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--compilers coffee:coffee-script/)
           runner.run(some_paths, options.merge({ :coffeescript => false}))
+        end
+      end
+
+      context "and livescript option is true" do
+        it "passes the --compilers option to mocha node" do
+          Open3.should_receive(:popen3).with(/--compilers ls:LiveScript/)
+    runner.run(some_paths, options.merge({ :livescript => true}))
+        end
+      end
+
+      context "and livescript option is false" do
+        it "does not pass the --compilers option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--compilers ls:LiveScript/)
+    runner.run(some_paths, options.merge({ :livescript => false}))
+        end
+      end
+
+      context "and both coffeescript and livescript options are true" do
+        it "passes the --compilers option to mocha node" do
+          Open3.should_receive(:popen3).with(/--compilers coffee:coffee-script,ls:LiveScript/)
+    runner.run(some_paths, options.merge({ :coffeescript => true, :livescript => true}))
         end
       end
 
@@ -56,6 +77,20 @@ describe Guard::MochaNode::Runner do
         end
       end
 
+      context "and require option is present" do
+        it "passes the --require option to mocha node" do
+          Open3.should_receive(:popen3).with(/--require should/)
+          runner.run(some_paths, options.merge({ :require => 'should'}))
+        end
+      end
+
+      context "and require option is not present" do
+        it "does not pass the --recursive option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--require/)
+          runner.run(some_paths, options)
+        end
+      end
+
       context "and recursive option is true" do
         it "passes the --recursive option to mocha node" do
           Open3.should_receive(:popen3).with(/--recursive/)
@@ -67,6 +102,20 @@ describe Guard::MochaNode::Runner do
         it "does not pass the --recursive option to mocha node" do
           Open3.should_not_receive(:popen3).with(/--recursive/)
           runner.run(some_paths, options.merge({ :recursive => false}))
+        end
+      end
+
+      context "and globals option is present" do
+        it "passes the --globals option to mocha node" do
+          Open3.should_receive(:popen3).with(/--globals foo,bar/)
+          runner.run(some_paths, options.merge({ :globals => ['foo', 'bar']}))
+        end
+      end
+
+      context "and globals option is not present" do
+        it "does not pass the --globals option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--globals/)
+          runner.run(some_paths, options)
         end
       end
 

@@ -62,6 +62,10 @@ Display growl/libnotify notifications.
 
 Load coffeescript and all execution of .coffee files.
 
+* `:livescript       # default => false`
+
+Load livescript and all execution of .ls files.
+
 * `:reporter         # default => "spec"`
 
 To select a mocha reporter
@@ -73,6 +77,14 @@ Enable or disable the mocha color output
 * `:recursive        # default => true`
 
 Enable or disable the recursive directory mocha option
+
+* `:require          # default => nil`
+
+Make mocha require the given module.
+
+* `:globals          # default => nil`
+
+Allow the given global names.
 
 * `:paths_for_all_specs  # default => ['spec']`
 

@@ -40,6 +40,7 @@ module Guard
         options << "--compilers #{compilers.join(",")}" unless compilers.empty?
         options << "--recursive" if @options[:recursive]
         options << "--require #{@options[:require]}" if @options[:require]
+        options << "--globals #{@options[:globals].join(",")}" if @options[:globals]
       	if @options[:color]
       	  options << "-c"
       	else

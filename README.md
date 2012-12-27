@@ -82,6 +82,10 @@ Enable or disable the recursive directory mocha option
 
 Make mocha require the given module.
 
+* `:globals          # default => nil`
+
+Allow the given global names.
+
 * `:paths_for_all_specs  # default => ['spec']`
 
 Paths for run all specs

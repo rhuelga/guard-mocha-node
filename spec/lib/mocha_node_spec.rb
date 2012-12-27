@@ -60,6 +60,10 @@ describe Guard::MochaNode do
         guard.options[:recursive].should eql true
       end
 
+      it "sets :globals option to nil" do
+        guard.options[:globals].should be_nil
+      end
+
       it "sets :paths_for_all_specs  option to ['spec']" do
         guard.options[:paths_for_all_specs].should eql ['spec']
       end
@@ -87,6 +91,7 @@ describe Guard::MochaNode do
 					      :color            => false,
                 :require          => 'should',
 					      :recursive        => false,
+                :globals          => ['foo', 'bar'],
 					      :paths_for_all_specs => %w(test)
                                             }) }
 
@@ -132,6 +137,10 @@ describe Guard::MochaNode do
 
       it "sets the :recursive option" do
         guard.options[:recursive].should be_false
+      end
+
+      it "sets the :globals option" do
+        guard.options[:globals].should eql ['foo', 'bar']
       end
 
       it "sets the :paths_for_all_specs option" do

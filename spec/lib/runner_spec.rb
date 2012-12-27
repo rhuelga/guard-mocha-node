@@ -105,6 +105,20 @@ describe Guard::MochaNode::Runner do
         end
       end
 
+      context "and globals option is present" do
+        it "passes the --globals option to mocha node" do
+          Open3.should_receive(:popen3).with(/--globals foo,bar/)
+          runner.run(some_paths, options.merge({ :globals => ['foo', 'bar']}))
+        end
+      end
+
+      context "and globals option is not present" do
+        it "does not pass the --globals option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--globals/)
+          runner.run(some_paths, options)
+        end
+      end
+
       it "returns IO object" do
         io_obj = double("io obj")
         Open3.stub(:popen3 => io_obj)

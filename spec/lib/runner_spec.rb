@@ -77,6 +77,20 @@ describe Guard::MochaNode::Runner do
         end
       end
 
+      context "and require option is present" do
+        it "passes the --require option to mocha node" do
+          Open3.should_receive(:popen3).with(/--require should/)
+          runner.run(some_paths, options.merge({ :require => 'should'}))
+        end
+      end
+
+      context "and require option is not present" do
+        it "does not pass the --recursive option to mocha node" do
+          Open3.should_not_receive(:popen3).with(/--require/)
+          runner.run(some_paths, options)
+        end
+      end
+
       context "and recursive option is true" do
         it "passes the --recursive option to mocha node" do
           Open3.should_receive(:popen3).with(/--recursive/)

@@ -78,6 +78,10 @@ Enable or disable the mocha color output
 
 Enable or disable the recursive directory mocha option
 
+* `:require          # default => nil`
+
+Make mocha require the given module.
+
 * `:paths_for_all_specs  # default => ['spec']`
 
 Paths for run all specs

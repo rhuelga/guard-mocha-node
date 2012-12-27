@@ -52,6 +52,10 @@ describe Guard::MochaNode do
         guard.options[:color].should eql true
       end
 
+      it "sets :require option to nil" do
+        guard.options[:require].should be_nil
+      end
+
       it "sets :recursive option to true" do
         guard.options[:recursive].should eql true
       end
@@ -81,6 +85,7 @@ describe Guard::MochaNode do
                 :livescript       => false,
 					      :reporter         => 'spec',
 					      :color            => false,
+                :require          => 'should',
 					      :recursive        => false,
 					      :paths_for_all_specs => %w(test)
                                             }) }
@@ -116,12 +121,19 @@ describe Guard::MochaNode do
       it "sets the :reporter option" do
         guard.options[:reporter].should eql 'spec'
       end
+
       it "sets the :color option" do
         guard.options[:color].should be_false
       end
+
+      it "sets the :require option" do
+        guard.options[:require].should eql 'should'
+      end
+
       it "sets the :recursive option" do
         guard.options[:recursive].should be_false
       end
+
       it "sets the :paths_for_all_specs option" do
         guard.options[:paths_for_all_specs].should eql ['test']
       end

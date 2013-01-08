@@ -19,53 +19,75 @@ describe Guard::MochaNode::Runner do
       let(:some_paths) { %w(/foo/bar /zip/zap) }
 
       it "executes mocha node" do
-        Open3.should_receive(:popen3).with(/__EXECUTABLE__/)
+        Open3.should_receive(:popen3) do |*args|
+	  args[0].should eq "__EXECUTABLE__"
+	end
         runner.run(some_paths, options.merge({ :mocha_bin => "__EXECUTABLE__"}))
       end
 
       it "passes the paths to the executable" do
-        Open3.should_receive(:popen3).with(/#{some_paths.join(" ")}/)
+        Open3.should_receive(:popen3) do |*args|
+	  last_args = args[(some_paths.length * -1)..(-1)]
+	  last_args.should eql some_paths
+	end
         runner.run(some_paths, options)
       end
 
       context "and coffeescript option is true" do
-        it "passes the --coffee option to mocha node" do
-          Open3.should_receive(:popen3).with(/--compilers coffee:coffee-script/)
+        it "passes the --compilers coffee:coffee-script option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    index_compilers = args.find_index "--compilers"
+	    index_compilers.should_not be nil
+	    args[index_compilers +1].should eql "coffee:coffee-script"
+	  end
 	  runner.run(some_paths, options.merge({ :coffeescript => true}))
         end
       end
 
       context "and coffeescript option is false" do
         it "does not pass the --coffee option to mocha node" do
-          Open3.should_not_receive(:popen3).with(/--coffee/)
+          Open3.should_receive(:popen3) do |*args|
+	    index_compilers = args.find_index "--compilers"
+	    if index_compilers != nil
+	      args[index_compilers +1].should_not match /coffee:coffee-script/
+	    end
+	  end
           runner.run(some_paths, options.merge({ :coffeescript => false}))
         end
       end
 
       context "and color option is true" do
         it "passes the -c option to mocha node" do
-          Open3.should_receive(:popen3).with(/-c/)
+          Open3.should_receive(:popen3) do |*args|
+	    args.should include "-c"
+	  end
           runner.run(some_paths, options.merge({ :color => true}))
         end
       end
 
       context "and color option is false" do
         it "passes the -C option to mocha node" do
-          Open3.should_receive(:popen3).with(/-C/)
+          Open3.should_receive(:popen3) do |*args|
+	    args.should include "-C"
+	  end
           runner.run(some_paths, options.merge({ :color => false}))
         end
       end
 
       context "and recursive option is true" do
         it "passes the --recursive option to mocha node" do
-          Open3.should_receive(:popen3).with(/--recursive/)
+          Open3.should_receive(:popen3) do |*args|
+	    args.should include "--recursive"
+	  end
           runner.run(some_paths, options.merge({ :recursive => true}))
         end
       end
 
       context "and recursive option is false" do
         it "does not pass the --recursive option to mocha node" do
-          Open3.should_not_receive(:popen3).with(/--recursive/)
+          Open3.should_receive(:popen3) do |*args|
+	    args.should_not include "--recursive"
+	  end
           runner.run(some_paths, options.merge({ :recursive => false}))
         end
       end

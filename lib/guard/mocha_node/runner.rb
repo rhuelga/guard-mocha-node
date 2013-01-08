@@ -36,10 +36,20 @@ module Guard
 
       def self.command_line_options
         options = []
+	compilers = []
 
         if @options[:coffeescript]
-          options += %w(--compilers coffee:coffee-script)
+          compilers << "coffee:coffee-script"
         end
+
+	if @options[:livescript]
+          compilers << "ls:LiveScript"
+        end
+
+	if not compilers.empty?
+	  options << "--compilers"
+	  options << compilers.join(",")
+	end
 
         if @options[:recursive]
           options << "--recursive"

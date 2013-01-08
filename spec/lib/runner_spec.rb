@@ -45,7 +45,7 @@ describe Guard::MochaNode::Runner do
       end
 
       context "and coffeescript option is false" do
-        it "does not pass the --coffee option to mocha node" do
+        it "does not pass the --compilers coffee:coffee-script option to mocha node" do
           Open3.should_receive(:popen3) do |*args|
 	    index_compilers = args.find_index "--compilers"
 	    if index_compilers != nil
@@ -53,6 +53,40 @@ describe Guard::MochaNode::Runner do
 	    end
 	  end
           runner.run(some_paths, options.merge({ :coffeescript => false}))
+        end
+      end
+
+      context "and livescript option is true" do
+        it "passes the --compilers ls:LiveScript option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    index_compilers = args.find_index "--compilers"
+	    index_compilers.should_not be nil
+	    args[index_compilers +1].should eql "ls:LiveScript"
+	  end
+	  runner.run(some_paths, options.merge({ :livescript => true}))
+        end
+      end
+
+      context "and livescript option is false" do
+        it "does not pass the --compilers ls:LiveScript option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    index_compilers = args.find_index "--compilers"
+	    if index_compilers != nil
+	      args[index_compilers +1].should_not match /ls:LiveScript/
+	    end
+	  end
+          runner.run(some_paths, options.merge({ :livescript => false}))
+        end
+      end
+
+      context "and both coffeescript and livescript  option are true" do
+        it "passes the --compilers coffee:coffee-script,ls:LiveScript option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    index_compilers = args.find_index "--compilers"
+	    index_compilers.should_not be nil
+	    args[index_compilers +1].should eql "coffee:coffee-script,ls:LiveScript"
+	  end
+	  runner.run(some_paths, options.merge({ :livescript => true, :coffeescript => true }))
         end
       end
 

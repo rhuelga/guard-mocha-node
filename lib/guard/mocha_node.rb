@@ -10,6 +10,7 @@ module Guard
       :keep_failed      => true,
       :notify           => true,
       :coffeescript     => true,
+      :livescript       => false,
       :verbose          => true,
       :reporter		=> "spec",
       :color            => true,

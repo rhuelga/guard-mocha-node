@@ -70,6 +70,11 @@ Load livescript and all execution of .ls files.
 
 To select a mocha reporter
 
+* `:require          # default => nil`
+
+Make mocha require the given modules, it should be a string or a array
+of strings if multiple modules are to be required
+
 * `:color            # default => true`
 
 Enable or disable the mocha color output

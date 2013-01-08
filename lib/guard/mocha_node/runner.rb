@@ -55,12 +55,24 @@ module Guard
           options << "--recursive"
         end
 
+	if @options[:require]
+	  r = @options[:require]
+	  r = [r] if not r.instance_of? Array
+
+	  r.each { |e|
+	    options << "-r"
+	    options << e
+	  }
+	end
+
         if @options[:color]
           options << "-c"
         else
           options << "-C"
         end
 
+	# puts "---- printing the options"
+	# puts options
         options
       end
     end

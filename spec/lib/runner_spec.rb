@@ -126,6 +126,38 @@ describe Guard::MochaNode::Runner do
         end
       end
 
+      context "and require option is 'should'" do
+        it "passes the '-r should' option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    require_index = args.find_index '-r'
+	    require_index.should_not eq nil
+	    args[require_index+1].should eql "should"
+	  end
+          runner.run(some_paths, options.merge({ :require => 'should'}))
+        end
+      end
+
+      context "and require option is ['should', 'chai']" do
+        it "passes the '-r should -r chai' option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    args.each_with_index.
+	      reject{ |e,i| e != '-r' }.
+	      map{ |e,i| args[i+1] }.should eql ["should", "chai"]
+
+	  end
+          runner.run(some_paths, options.merge({ :require => ['should', 'chai'] }))
+        end
+      end
+
+      context "and require option is nil" do
+        it "does not pass the -r option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    args.should_not include "-r"
+	  end
+          runner.run(some_paths, options.merge({ :require => nil}))
+        end
+      end
+
       it "returns IO object" do
         io_obj = double("io obj")
         Open3.stub(:popen3 => io_obj)

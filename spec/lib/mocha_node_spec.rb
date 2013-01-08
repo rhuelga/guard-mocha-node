@@ -56,6 +56,10 @@ describe Guard::MochaNode do
         guard.options[:recursive].should eql true
       end
 
+      it "sets :require option to nil" do
+	guard.options[:require].should_not be
+      end
+
       it "sets :paths_for_all_specs  option to ['spec']" do
         guard.options[:paths_for_all_specs].should eql ['spec']
       end
@@ -77,12 +81,13 @@ describe Guard::MochaNode do
                                               :all_after_pass   => false,
                                               :keep_failed      => false,
                                               :notify           => false,
-					      :coffeescript     => false,
-					      :livescript       => true,
-					      :reporter         => 'spec',
-					      :color            => false,
-					      :recursive        => false,
-					      :paths_for_all_specs => %w(test)
+																						  :coffeescript     => false,
+																						  :livescript       => true,
+																						  :reporter         => 'spec',
+																						  :color            => false,
+																						  :recursive        => false,
+																						  :require          => "should",
+																						  :paths_for_all_specs => %w(test)
                                             }) }
 
       it "sets the path to mocha bin" do
@@ -121,6 +126,9 @@ describe Guard::MochaNode do
       end
       it "sets the :recursive option" do
         guard.options[:recursive].should be_false
+      end
+      it "sets the :require option" do
+        guard.options[:require].should eql "should"
       end
       it "sets the :paths_for_all_specs option" do
         guard.options[:paths_for_all_specs].should eql ['test']

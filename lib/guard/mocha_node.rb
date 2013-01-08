@@ -15,6 +15,7 @@ module Guard
       :reporter		=> "spec",
       :color            => true,
       :recursive        => true,
+      :require          => nil,
       :paths_for_all_specs => %w(spec)
     }
 

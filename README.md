@@ -75,6 +75,10 @@ To select a mocha reporter
 Make mocha require the given modules, it should be a string or a array
 of strings if multiple modules are to be required
 
+* `:extra_cli_opts   # default => []`
+
+An array of additional CLI options to be appended to the command.
+
 * `:color            # default => true`
 
 Enable or disable the mocha color output

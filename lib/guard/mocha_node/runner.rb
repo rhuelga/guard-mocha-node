@@ -73,7 +73,7 @@ module Guard
 
 	# puts "---- printing the options"
 	# puts options
-        options
+        options + Array(@options[:extra_cli_opts])
       end
     end
   end

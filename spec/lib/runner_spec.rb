@@ -108,6 +108,26 @@ describe Guard::MochaNode::Runner do
         end
       end
 
+      context "and globals option is set" do
+        it "passes the --globals option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    args.should include("--globals", "Foo")
+            # ensure ordering
+            args[args.index("--globals") + 1].should eql("Foo")
+	  end
+          runner.run(some_paths, options.merge({ :globals => ['Foo']}))
+        end
+      end
+
+      context "and globals option is empty" do
+        it "does not pass the --globals option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+	    args.should_not include "--globals"
+	  end
+          runner.run(some_paths, options.merge({ :globals => []}))
+        end
+      end
+
       context "and recursive option is true" do
         it "passes the --recursive option to mocha node" do
           Open3.should_receive(:popen3) do |*args|

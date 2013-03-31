@@ -12,11 +12,12 @@ module Guard
       :coffeescript     => true,
       :livescript       => false,
       :verbose          => true,
-      :reporter		=> "spec",
+      :reporter         => "spec",
       :color            => true,
       :recursive        => true,
       :require          => nil,
-      :paths_for_all_specs => %w(spec)
+      :paths_for_all_specs => %w(spec),
+      :globals          => []
     }
 
     autoload :Runner,    "guard/mocha_node/runner"

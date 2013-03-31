@@ -87,6 +87,10 @@ Enable or disable the recursive directory mocha option
 
 Paths for run all specs
 
+* `:globals # default => []`
+
+Globals to ignore when performing global leak detection
+
 * `:mocha_bin`
 
 Specify the path to the jasmine-node binary that will execute your specs.

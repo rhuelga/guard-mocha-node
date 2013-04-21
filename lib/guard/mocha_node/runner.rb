@@ -76,6 +76,11 @@ module Guard
           options << @options[:globals].join(',')
         end
 
+        if @options[:reporter]
+          options << "--reporter"
+          options << @options[:reporter]
+        end
+
 	# puts "---- printing the options"
 	# puts options
         options

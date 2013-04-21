@@ -20,9 +20,13 @@ module Guard
         @io = Runner.run(@run_paths, options)
         @stdout     = @io[STDOUT]
         @stderr     = @io[STDERR]
-        @exitstatus = @io[THREAD].value rescue ERROR_CODE
-        @stdout.lines { |line| print line if !line.strip.empty? }
+        # stream stdout immediately
+        until @stdout.eof?
+          line = @stdout.gets
+          print line if !line.strip.empty?
+        end
         @stderr.lines { |line| print line }
+        @exitstatus = @io[THREAD].value rescue ERROR_CODE
         close_io
         update_passed_and_fixed
         update_failing_paths

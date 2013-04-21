@@ -21,7 +21,7 @@ describe Guard::MochaNode::SpecState do
   describe "#update" do
     let(:io) { [
                 double("stdin",  :close => true),
-                double("stdout", :close => true, :lines => []),
+                double("stdout", :close => true, :lines => [], :eof? => true),
                 double("stderr", :close => true, :lines => []),
                 double("thread", :value => 0)
                ] }

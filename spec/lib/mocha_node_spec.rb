@@ -57,11 +57,15 @@ describe Guard::MochaNode do
       end
 
       it "sets :require option to nil" do
-	guard.options[:require].should_not be
+        guard.options[:require].should_not be
       end
 
       it "sets :paths_for_all_specs  option to ['spec']" do
         guard.options[:paths_for_all_specs].should eql ['spec']
+      end
+
+      it "sets :globals option to []" do
+        guard.options[:globals].should eql []
       end
 
       it "is passing" do
@@ -87,7 +91,8 @@ describe Guard::MochaNode do
 																						  :color            => false,
 																						  :recursive        => false,
 																						  :require          => "should",
-																						  :paths_for_all_specs => %w(test)
+																						  :paths_for_all_specs => %w(test),
+                                              :globals          => ['Foo']
                                             }) }
 
       it "sets the path to mocha bin" do
@@ -132,6 +137,9 @@ describe Guard::MochaNode do
       end
       it "sets the :paths_for_all_specs option" do
         guard.options[:paths_for_all_specs].should eql ['test']
+      end
+      it "sets the :globals option" do
+        guard.options[:globals].should eql ['Foo']
       end
     end
   end

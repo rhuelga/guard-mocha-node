@@ -71,6 +71,11 @@ module Guard
           options << "-C"
         end
 
+        if @options[:globals] and not @options[:globals].empty?
+          options << "--globals"
+          options << @options[:globals].join(',')
+        end
+
 	# puts "---- printing the options"
 	# puts options
         options

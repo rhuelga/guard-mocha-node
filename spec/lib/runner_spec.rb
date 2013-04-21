@@ -128,6 +128,26 @@ describe Guard::MochaNode::Runner do
         end
       end
 
+      context "and reporter option is set" do
+        it "passes the --reporter option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+            args.should include("--reporter", "Foo")
+            # ensure ordering
+            args[args.index("--reporter") + 1].should eql("Foo")
+          end
+          runner.run(some_paths, options.merge({ :reporter => 'Foo' }))
+        end
+      end
+
+      context "and reporter option is not set" do
+        it "does not pass the --reporter option to mocha node" do
+          Open3.should_receive(:popen3) do |*args|
+            args.should_not include "--reporter"
+          end
+          runner.run(some_paths, options)
+        end
+      end
+
       context "and recursive option is true" do
         it "passes the --recursive option to mocha node" do
           Open3.should_receive(:popen3) do |*args|
